@@ -1,8 +1,15 @@
 <?php
 
+use App\Models\User;
+use App\Models\VaccineCenter;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
+
+Route::get('/test', function () {
+    // dd(VaccineCenter::find(5)->users()->limit(10)->get());
+    // dd(User::find(1)->status->name);
+});
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
