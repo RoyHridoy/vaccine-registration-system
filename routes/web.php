@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\VaccineStatus;
 use App\Models\User;
 use App\Models\VaccineCenter;
 use Illuminate\Support\Facades\Route;
@@ -11,7 +12,9 @@ Route::get('/test', function () {
     // dd(User::find(1)->status->name);
 });
 
-Route::view('dashboard', 'dashboard')
+Route::view('dashboard', 'dashboard', [
+    'VaccineStatus' => VaccineStatus::class,
+])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
