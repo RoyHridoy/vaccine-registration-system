@@ -11,18 +11,15 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome');
 
 Route::get('/test', function () {
-    // dump(VaccineCenter::find(1)->users()->where('users.status', 1)->pluck('id'));
-    // dump(VaccineCenter::find(2)->users()->where('users.status', 1)->pluck('id'));
-    // dump(VaccineCenter::find(3)->users()->where('users.status', 1)->pluck('id'));
-    // dump(VaccineCenter::find(4)->users()->where('users.status', 1)->pluck('id'));
-    // dump(VaccineCenter::find(5)->users()->where('users.status', 1)->pluck('id'));
+    dump(VaccineCenter::find(1)->users()->where('users.status', 1)->pluck('id'));
+    dump(VaccineCenter::find(2)->users()->where('users.status', 1)->pluck('id'));
+    dump(VaccineCenter::find(3)->users()->where('users.status', 1)->pluck('id'));
+    dump(VaccineCenter::find(4)->users()->where('users.status', 1)->pluck('id'));
+    dump(VaccineCenter::find(5)->users()->where('users.status', 1)->pluck('id'));
     dump('Remains for vaccination', User::where('status', 1)->pluck('id'));
 
     // 1. Mark users as vaccinated
     $vaccinatedUsers = User::where('status', VaccineStatus::SCHEDULED->value)->pluck('id');
-    DB::table('users')->whereIn('id', $vaccinatedUsers)->update([
-        'status' => VaccineStatus::VACCINATED->value,
-    ]);
     dump('today vaccinated users ', $vaccinatedUsers);
 
     // 2. Schedule for the next users
@@ -52,20 +49,15 @@ Route::get('/test', function () {
     // dump($userToBeScheduled);
 
     // 2.2 Schedule users for vaccination (update the users data)
-    DB::table('users')->whereIn('id', $userIdsToBeScheduled)->update([
-        'status' => VaccineStatus::SCHEDULED->value,
-        'scheduled_at' => today()->addDay(),
-    ]);
 
     // 3 Send Notification to the scheduled users
-    User::whereIn('id', $userIdsToBeScheduled)->with('vaccineCenter:id,name')->chunk(300, function ($users) {
-        foreach ($users as $user) {
-            Notification::send($user, new VaccineDateScheduled(
-                $user->vaccineCenter->name,
-                today()->addDay()->toFormattedDayDateString()
-            ));
-        }
-    });
+
+    // Tasks
+    // 1. Query Optimization - remove N+1 Query Problem
+    // 2. Implement Dashboard with filament
+    // 3. Write Documentation
+    // 4.
+
 });
 
 Route::view('dashboard', 'dashboard', [
