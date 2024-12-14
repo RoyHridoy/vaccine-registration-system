@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('nid')->unique();
             $table->boolean('is_admin')->default(0);
             $table->tinyInteger('status')->default(1);
-            $table->dateTime('scheduled_at')->nullable();
+            $table->timestamp('scheduled_at')->nullable();
             $table->string('password');
             $table->foreignId('vaccine_center_id')->constrained();
             $table->rememberToken();

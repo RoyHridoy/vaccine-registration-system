@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -19,6 +20,9 @@ class UserSeeder extends Seeder
         ]);
 
         // User::factory(10)->randomStatus()->create();
-        User::factory(1000)->create();
+        User::factory(1000)
+            ->state(
+                new Sequence(fn ($sequence) => ['created_at' => now()->subMinutes($sequence->index)])
+            )->create();
     }
 }
