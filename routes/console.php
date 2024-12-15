@@ -11,5 +11,4 @@ Artisan::command('inspire', function () {
 Schedule::command('app:schedule-vaccination')
     ->dailyAt('21:00')
     ->days([0, 1, 2, 3, 6])
-    ->at('21:00')
     ->timezone('Asia/Dhaka');
