@@ -3,8 +3,6 @@
 use App\Enum\VaccineStatus;
 use App\Models\User;
 use App\Models\VaccineCenter;
-use App\Notifications\VaccineDateScheduled;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Route;
 

@@ -34,10 +34,10 @@ class VaccineDateScheduled extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
-        return (new MailMessage())
+        return (new MailMessage)
             ->subject('Schedule for Vaccination')
             ->line("Your vaccination appointment at {$this->vaccineCenterName} is scheduled for {$this->date}.")
-            ->line("Please bring your NID card.")
+            ->line('Please bring your NID card.')
             ->line('Thanks!');
     }
 }
