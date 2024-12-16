@@ -91,41 +91,55 @@ password: password
 - **MySQL 8.0+ or Sqlite 3.25+**
 - **Composer**
 - **Node.js** and **npm** (for frontend assets, if required)
+- Configure a **mail server** (e.g., Mailpit for local or SMTP for production) for email notification.
 
 ### Steps
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/vaccine-scheduler.git
-   cd vaccine-scheduler
-   ```
-2. Install dependencies:
-   ```bash
-   composer install
-   npm install && npm run dev
-   ```
-3. Configure environment variables:
-   ```bash
-   cp .env.example .env
-   ```
-   Update the `.env` file with your database and email credentials.
+1. Clone the repository
+```bash
+git clone https://github.com/RoyHridoy/vaccine-registration-system.git
+cd vaccine-registration-system
+```
 
-4. Run migrations and seeders:
-   ```bash
-   php artisan migrate --seed
-   ```
+2. Install dependencies
+```bash
+composer install
+npm install
+```
 
-5. Set up the scheduler:
-   - Add the following to your server's cron jobs:
-     ```bash
-     * * * * * php /path-to-project/artisan schedule:run >> /dev/null 2>&1
-     ```
+3. Configure environment variables
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-6. Start the server:
-   ```bash
-   php artisan serve
-   ```
+4. Configure `.env`
+- Update database settings.
+- Configure mail settings.
 
----
+5. Run migrations and seed the database:
+```bash
+php artisan migrate
+php artisan db:seed
+```
+
+6. Start the development server:
+```bash
+php artisan serve
+```
+
+7. Start asset compilation:
+```bash
+npm run dev
+```
+
+8. Start Services:
+```bash
+# Start the queue worker
+php artisan queue:work
+
+# Start the Schedule worker
+php artisan schedule:work
+```
 
 ## Usage
 
@@ -139,12 +153,6 @@ password: password
 
 ### Scheduling Vaccinations
 - Vaccination dates are scheduled automatically each day at 9 PM.
-
----
-
-## Bonus Features
-- **Admin Panel**: Provides an easy-to-use interface for managing users and their statuses.
-- **Asynchronous Notifications**: Ensures smooth user experience without delays.
 
 ---
 
