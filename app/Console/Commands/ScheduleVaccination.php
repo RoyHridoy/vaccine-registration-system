@@ -33,9 +33,11 @@ class ScheduleVaccination extends Command
     {
         // 1. Mark already vaccinated users
         $vaccinatedUsers = User::where('status', VaccineStatus::SCHEDULED->value)->pluck('id');
-        DB::table('users')->whereIn('id', $vaccinatedUsers)->update([
-            'status' => VaccineStatus::VACCINATED->value,
-        ]);
+        collect($vaccinatedUsers)->chunk(300)->each(function ($chunkedUserIds) {
+            DB::table('users')->whereIn('id', $chunkedUserIds)->update([
+                'status' => VaccineStatus::VACCINATED->value,
+            ]);
+        });
 
         // 2. Select users to provide Schedule
         $userIdsToBeScheduled = (new UserIdsToBeScheduledQuery)->execute();

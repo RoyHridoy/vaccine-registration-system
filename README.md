@@ -81,6 +81,8 @@ This application is built using **Laravel 11.x** and provides a streamlined way 
 admin email: admin@vaccine.com
 password: password
 ```
+**Note: By Default 1000 users and 5 vaccine_center created, if you need to modify check UserSeeder.php and VaccineCenterSeeder.php**
+
 ---
 
 ## Installation
